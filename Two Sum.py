@@ -10,6 +10,11 @@ Input: nums = [2,7,11,15], target = 9
 Output: [0,1]
 Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 
+Approach: 
+    1. Initialize a hashmap
+    2. Rather than iterating through each and every combination of array, start with difference between target and each value. 
+    3. If both the values are available in hashset, return the index of the value. 
+    4. Else add the index of the new number to the hashset
 
 hashset = {}
 for i,n in enumerate nums:
@@ -18,3 +23,6 @@ for i,n in enumerate nums:
         return (hashset[diff],i)
     hashset[n]=i
 return hashset
+
+Time Complexity  - O(n)
+Space Complexity - O(n) since we are creating a hashmap. 
