@@ -15,14 +15,16 @@ Approach:
     2. Rather than iterating through each and every combination of array, start with difference between target and each value. 
     3. If both the values are available in hashset, return the index of the value. 
     4. Else add the index of the new number to the hashset
-
-hashset = {}
-for i,n in enumerate nums:
-    diff = target-n
-    if diff in hashset:
-        return (hashset[diff],i)
-    hashset[n]=i
-return hashset
+    
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hashset={}
+        for i,a in enumerate(nums):
+            diff = target-a
+            if diff in hashset:
+                return (hashset[diff],i)
+            hashset[a]=i
+        return hashset
 
 Time Complexity  - O(n)
 Space Complexity - O(n) since we are creating a hashmap. 
