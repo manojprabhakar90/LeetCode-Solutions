@@ -1,0 +1,63 @@
+Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in any order.
+
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+ 
+
+Example 1:
+
+Input: s = "catsanddog", wordDict = ["cat","cats","and","sand","dog"]
+Output: ["cats and dog","cat sand dog"]
+Example 2:
+
+Input: s = "pineapplepenapple", wordDict = ["apple","pen","applepen","pine","pineapple"]
+Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
+Explanation: Note that you are allowed to reuse a dictionary word.
+Example 3:
+
+Input: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
+Output: []
+ 
+
+Constraints:
+
+1 <= s.length <= 20
+1 <= wordDict.length <= 1000
+1 <= wordDict[i].length <= 10
+s and wordDict[i] consist of only lowercase English letters.
+All the strings of wordDict are unique.
+
+Approach: We can solve it using dynamic programming
+
+1. Initialize a set of word dictionary
+2. Initialize a dictionary to store the different words and their solution, so we dont need to re-iterate through the same word combination twice. 
+3. Iterate through the string (Compare each and every letter in the input string with the word dictionary). 
+4. If word is present in the dictionary, store the result in a variable. 
+5. Do the same process for the rest of strings
+6. Return final result. 
+
+Solution:
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        worddict= set(wordDict)
+        memo = {}
+        
+        def helper(sub):
+            if sub in memo:
+                return memo[sub]
+            
+            result = []
+            for i in range(len(sub)):
+                prefix = sub[:i+1]
+                if prefix in worddict:
+                    if prefix==sub:
+                        result.append(prefix)
+                    else:
+                        restofwords = helper(sub[i+1:])
+                        for phrase in restofwords:
+                            result.append(prefix+' '+phrase)
+            memo[sub] = result
+            return result
+        return helper(s)
+Runtime: 70 ms, faster than 5.92% of Python3 online submissions for Word Break II.
+Memory Usage: 14 MB, less than 33.83% of Python3 online submissions for Word Break II.
